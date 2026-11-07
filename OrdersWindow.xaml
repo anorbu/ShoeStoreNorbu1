@@ -1,0 +1,99 @@
+﻿<Window x:Class="ShoeStoreНорбу.OrdersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShoeStoreНорбу"
+        mc:Ignorable="d"
+        Title="Заказы" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+        <Border Grid.Row="0" Background="#7FFF00" Padding="10" Margin="5" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Кнопки слева -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Button x:Name="BtnAddOrder" Content="Добавить заказ" 
+            Padding="10,5" Margin="0,0,10,0"
+           Click="BtnAddOrder_Click" Visibility="Collapsed"/>
+                    <Button x:Name="BtnDeleteOrder" Content="Удалить заказ" 
+            Padding="10,5" Margin="0,0,10,0"
+           Click="BtnDeleteOrder_Click" Visibility="Collapsed"/>
+                    <Button Content="Обновить" Padding="10,5" Click="Button_Click"/>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" 
+            HorizontalAlignment="Center">
+                    <Image Source="/Icon.png" Height="40" Margin="0,0,10,0"/>
+                    <TextBlock Text="Заказы" FontSize="22" FontWeight="Bold"
+               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Список заказов -->
+        <ListView Grid.Row="1" x:Name="ListOrders" Margin="10"
+         MouseDoubleClick="ListOrders_MouseDoubleClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="2" BorderBrush="Black" 
+                    Margin="5" Padding="10" Width="900"
+                    HorizontalAlignment="Left">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Левая колонка: информация о заказе -->
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Артикул заказа: " FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding OrderID}" FontWeight="Bold"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Статус заказа: "/>
+                                    <TextBlock Text="{Binding OrderStatus}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Адрес пункта выдачи: "/>
+                                    <TextBlock Text="{Binding PickupPoints.City}"/>
+                                    <TextBlock Text=", "/>
+                                    <TextBlock Text="{Binding PickupPoints.Street}"/>
+                                    <TextBlock Text=", д. "/>
+                                    <TextBlock Text="{Binding PickupPoints.House}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Дата заказа: "/>
+                                    <TextBlock Text="{Binding OrderDate, StringFormat={}{0:dd.MM.yyyy}}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- Правая колонка: дата доставки -->
+                            <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Margin="5">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="Дата доставки" TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding DeliveryDate, StringFormat={}{0:dd.MM.yyyy}}" 
+                                       FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>
